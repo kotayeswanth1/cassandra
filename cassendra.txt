@@ -1,0 +1,135 @@
+describe keyspaces;
+
+system_traces  system_schema  system_auth  system  system_distributed
+
+creating keyspace
+
+CREATE KEYSPACE tutorialspoint
+   ... WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+
+describe 
+
+cqlsh> DESCRIBE keyspaces;
+
+tutorialspoint  system_auth  system_distributed
+system_schema   system       system_traces
+
+Alter Key 
+
+ALTER KEYSPACE tutorialspoint
+WITH replication = {'class':'NetworkTopologyStrategy', 'replication_factor' : 3};
+
+createing table in database
+
+CREATE TABLE emp(
+                  ...    emp_id int PRIMARY KEY,
+                  ...    emp_name text,
+                  ...    emp_city text,
+                  ...    emp_sal varint,
+                  ...    emp_phone varint
+                  ...    );
+
+inserting commands 
+
+ insert into emp (emp_id,emp_name, emp_city,
+                  ... emp_phone, emp_sal)values(2,'yaswanth','hyderabad',096447389,89999);
+
+insert into emp (emp_id,emp_name, emp_city,
+                  ... emp_phone, emp_sal) values(1,'yaswanth','hyderabad',096447389,89999);
+
+TO see all insterted rows
+
+select * from emp;
+
+ emp_id | emp_city  | emp_name | emp_phone | emp_sal
+--------+-----------+----------+-----------+---------
+      1 | hyderabad | yaswanth |  96447389 |   89999
+      2 | hyderabad | yaswanth |  96447389 |   89999
+
+
+ select * from emp where emp_id =2;
+
+ emp_id | emp_city  | emp_name | emp_phone | emp_sal
+--------+-----------+----------+-----------+---------
+      2 | hyderabad | yaswanth |  96447389 |   89999
+
+select emp_name,emp_sal from emp;
+
+ emp_name | emp_sal
+----------+---------
+ yaswanth |   89999
+ yaswanth |   89999
+
+insert into emp (emp_id,emp_name, emp_city,
+                  ... emp_phone, emp_sal) values(3,'kota','sivakasi',0985637,20000);
+
+
+ select * from emp;
+
+ emp_id | emp_city  | emp_name | emp_phone | emp_sal
+--------+-----------+----------+-----------+---------
+      1 | hyderabad | yaswanth |  96447389 |   89999
+      2 | hyderabad | yaswanth |  96447389 |   89999
+      3 |  sivakasi |     kota |    985637 |   20000
+
+
+delete emp_sal from emp where emp_id=3;
+cqlsh:tutorialspoint> select * from emp;
+
+ emp_id | emp_city  | emp_name | emp_phone | emp_sal
+--------+-----------+----------+-----------+---------
+      1 | hyderabad | yaswanth |  96447389 |   89999
+      2 | hyderabad | yaswanth |  96447389 |   89999
+      3 |  sivakasi |     kota |    985637 |    null
+
+
+create table dept(
+                  ... dept_id int primary key,
+                  ... dept_name text,
+                  ... dept_project text,
+                  ... emp_phone varint
+                  ... );
+
+ select *from dept
+                  ... ;
+
+ dept_id | dept_name | dept_project | emp_phone
+---------+-----------+--------------+-----------
+
+
+insert into dept(dept_id,dept_name,
+                  ...  dept_project,emp_phone) values (1,'cse','kot',10000);
+cqlsh:tutorialspoint> insert into dept(dept_id,dept_name,
+                  ...  dept_project,emp_phone) values (2,'cse','kot',121000);
+cqlsh:tutorialspoint> insert into dept(dept_id,dept_name,
+                  ...  dept_project,emp_phone) values (3,'ece','yaswanth',13694);
+
+
+select * from dept;
+
+ dept_id | dept_name | dept_project | emp_phone
+---------+-----------+--------------+-----------
+       1 |       cse |          kot |     10000
+       2 |       cse |          kot |    121000
+       3 |       ece |     yaswanth |     13694
+
+
+ insert into dept(dept_id,dept_name,
+                  ...  dept_project,emp_phone) values (4,'mech','kota',111000);
+cqlsh:tutorialspoint> select * from dept;
+
+ dept_id | dept_name | dept_project | emp_phone
+---------+-----------+--------------+-----------
+       1 |       cse |          kot |     10000
+       2 |       cse |          kot |    121000
+       4 |      mech |         kota |    111000
+       3 |       ece |     yaswanth |     13694
+
+
+truncate dept;
+cqlsh:tutorialspoint> select * from dept;
+
+ dept_id | dept_name | dept_project | emp_phone
+---------+-----------+--------------+-----------
+
+
